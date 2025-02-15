@@ -20,24 +20,34 @@
 
 ## Usage
 
-Once the server is running (by default at http://localhost:6969), you can send messages to the server via HTTP requests. For example, you can use the browser's fetch API:
+Once the server is running (by default at ws://localhost:6969), you can connect to it using WebSockets. For example, you can use the browser's WebSocket API:
 
 ```html
 <script>
-  fetch('http://localhost:6969/message', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: "Hello, server!" })
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+  const ws = new WebSocket('ws://localhost:6969');
+
+  ws.onopen = function() {
+    console.log('WebSocket connection established.');
+    ws.send(JSON.stringify({ message: "Hello, server!" }));
+  };
+
+  ws.onmessage = function(event) {
+    console.log('Received from server:', event.data);
+  };
+
+  ws.onerror = function(error) {
+    console.error('WebSocket error:', error);
+  };
+
+  ws.onclose = function() {
+    console.log('WebSocket connection closed.');
+  };
 </script>
 ```
 
-Alternatively, you can use cURL from the command line:
+Alternatively, you can use wscat from the command line:
 
 ```sh
-curl -X POST http://localhost:6969/message -H "Content-Type: application/json" -d '{"message": "Hello, server!"}'
+wscat -c ws://localhost:6969
 ```
 
