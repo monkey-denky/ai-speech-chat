@@ -6,12 +6,8 @@ server.on('connection', (socket) => {
   console.log('A new client connected');
   socket.on('message', (message) => {
     console.log(`Received message: ${message}`);
-    // Respond with 'success' whenever a text message is received
-    if (typeof message === 'string') {
-      socket.send('success');
-    } else {
-      socket.send('success');
-    }
+    // Respond with a formatted message
+    socket.send(`Thank you for your message: ${message}`);
   });
 });
 
