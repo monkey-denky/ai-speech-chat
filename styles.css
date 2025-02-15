@@ -1,0 +1,195 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.mic-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mic-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mic-icon {
+    width: 32px;
+    height: 32px;
+    fill: #2196F3;
+    transition: fill 0.3s ease;
+}
+
+.mic-button.recording {
+    background-color: #2196F3;
+    animation: pulse 2s infinite;
+}
+
+.mic-button.recording .mic-icon {
+    fill: white;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(33, 150, 243, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(33, 150, 243, 0);
+    }
+}
+
+.wave-container {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mic-button.recording .wave-container {
+    opacity: 1;
+}
+
+.wave {
+    width: 3px;
+    height: 15px;
+    background-color: #2196F3;
+    border-radius: 1px;
+    animation: wave 1s ease-in-out infinite;
+}
+
+.wave:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.wave:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: scaleY(0.5);
+    }
+    50% {
+        transform: scaleY(2);
+    }
+}
+
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 45px;
+    padding: 8px 12px;
+    background-color: #333;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
+}
+
+.tooltip.visible {
+    opacity: 1;
+}
+
+.mic-button.error {
+    background-color: #f5f5f5;
+    box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.mic-button.error .mic-icon {
+    fill: #ff4b4b;
+}
+
+.transcription {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    min-height: 100px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.transcription.visible {
+    opacity: 1;
+}
+
+.waveform {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mic-button.recording .waveform {
+    opacity: 1;
+}
+
+.waveform span {
+    width: 3px;
+    height: 15px;
+    background-color: #fff;
+    border-radius: 1px;
+    animation: wave 1s infinite;
+}
+
+.waveform span:nth-child(2) { animation-delay: 0.1s; }
+.waveform span:nth-child(3) { animation-delay: 0.2s; }
+.waveform span:nth-child(4) { animation-delay: 0.3s; }
+.waveform span:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(2); }
+} 
